@@ -96,7 +96,33 @@ if(window.navigator.userAgent.indexOf('iPhone') != -1){
   
 }
 
+function shareOnWhatsApp(year, month) {
+  let message = `Milk Tracker Data for ${new Date(year, month).toLocaleString('default', { month: 'long' })} ${year}\n`;
+  let totalBill = 0;
+  let id = `${year}_${month}`;
+  let price = priceData[id] || 0;
+
+  for (let i = 1; i <= 31; i++) {
+    let id = `${year}_${month}_${i}`;
+    if (milkData[id] !== undefined) {
+      message += `\nDate: ${i}, Quantity: ${milkData[id]}`;
+      totalBill += +milkData[id];
+    }
+  }
+
+  totalBill *= price;
+  message += `\n\nTotal Bill: ₹${totalBill}`;
+
+  // Encode the message and create a whatsapp URL
+  let whatsapp_url = "https://wa.me/?text=" + encodeURIComponent(message);
+
+  // Open the URL in a new tab
+  window.open(whatsapp_url, '_blank');
+}
+
 window.setPrice = setPrice;
 window.prevMonth = prevMonth;
 window.nextMonth = nextMonth;
 window.updateMilkData = updateMilkData;
+window.shareOnWhatsApp = shareOnWhatsApp;
+window.currentDate = currentDate;
