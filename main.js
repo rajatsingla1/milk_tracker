@@ -97,15 +97,17 @@ if(window.navigator.userAgent.indexOf('iPhone') != -1){
 }
 
 function shareOnWhatsApp(year, month) {
-  let message = `Milk Tracker Data for ${new Date(year, month).toLocaleString('default', { month: 'long' })} ${year}\n`;
+  let message = `Milk Tracker Data for ${new Date(year, month).toLocaleString('default', { month: 'long' })} ${year}\n\n`;
   let totalBill = 0;
   let id = `${year}_${month}`;
   let price = priceData[id] || 0;
 
+  message += `Date\t\tQuantity\n`;
+
   for (let i = 1; i <= 31; i++) {
     let id = `${year}_${month}_${i}`;
-    if (milkData[id] !== undefined) {
-      message += `\nDate: ${i}, Quantity: ${milkData[id]}`;
+    if (milkData[id] !== undefined && milkData[id] != 0) {
+      message += `\n${i}\t\t${milkData[id]}`;
       totalBill += +milkData[id];
     }
   }
@@ -113,7 +115,7 @@ function shareOnWhatsApp(year, month) {
   totalBill *= price;
   message += `\n\nTotal Bill: ₹${totalBill}`;
 
-  // Encode the message and create a whatsapp URL
+  // Encode the message and create a WhatsApp URL
   let whatsapp_url = "https://wa.me/?text=" + encodeURIComponent(message);
 
   // Open the URL in a new tab
