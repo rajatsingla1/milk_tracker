@@ -106,7 +106,7 @@ function shareOnWhatsApp(year, month) {
 
   for (let i = 1; i <= 31; i++) {
     let id = `${year}_${month}_${i}`;
-    if (milkData[id] !== undefined && milkData[id] != 0) {
+    if (milkData[id] !== undefined) {
       message += `\n${i}\t\t${milkData[id]}`;
       totalBill += +milkData[id];
     }

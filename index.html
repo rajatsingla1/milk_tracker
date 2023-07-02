@@ -2,9 +2,10 @@
 <html lang="en">
   <head>
     <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <link rel="manifest" href="/manifest.json" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1" />
     <title>Milk Tracker</title>
+    <link rel="manifest" href="/manifest.json" />
+    
   </head>
   <body>
     <div class="container">
@@ -19,7 +20,7 @@
       <div id="warning" style="color: red; display: none">
         Price per unit is set to zero. Please update!
       </div>
-      <button onclick="shareOnWhatsApp(currentDate.getFullYear(), currentDate.getMonth())">Share on WhatsApp</button>
+      <button class="whatsapp-button" onclick="shareOnWhatsApp(currentDate.getFullYear(), currentDate.getMonth())">Share on WhatsApp</button>
 
       
       <div class="install-bar" id="install-bar" style="display: none">
