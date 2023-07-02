@@ -2,7 +2,7 @@
   "name": "Milk Tracker",
   "short_name": "MilkTracker",
   "description": "An application to track daily milk intake.",
-  "start_url": "/",
+  "start_url": "/?source=pwa",
   "display": "standalone",
   "background_color": "#F5F5F5",
   "theme_color": "#007BFF",
