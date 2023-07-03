@@ -113,7 +113,7 @@ function shareOnWhatsApp(year, month) {
   }
 
   totalBill *= price;
-  message += `\n\nTotal Bill: ₹${totalBill}`;
+  message += `\n\nTotal Bill: ₹${totalBill}\n\nGenerated via: https://tmilk.vercel.app`;
 
   // Encode the message and create a WhatsApp URL
   let whatsapp_url = "https://wa.me/?text=" + encodeURIComponent(message);
