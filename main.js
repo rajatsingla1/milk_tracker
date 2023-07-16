@@ -1,5 +1,3 @@
-import "./style.css";
-
 var milkData = JSON.parse(localStorage.getItem("milkData")) || {};
 var priceData = JSON.parse(localStorage.getItem("priceData")) || {};
 var currentDate = new Date();
@@ -27,16 +25,34 @@ function generateCalendar(year, month) {
     if (milkData[id] === undefined) {
       milkData[id] = 0;
     }
-    table += `<tr><td>${date.getDate()} ${date.toLocaleString("default", {
+    table += `<tr><td class="${getClass(
+      date
+    )}">${date.getDate()} ${date.toLocaleString("default", {
       month: "short",
     })}</td><td><input id="${id}" type="number" value="${
       milkData[id]
-    }" onchange="updateMilkData('${id}')"></td></tr>`;
+    }" onchange="updateMilkData('${id}')" onfocus="updateInput('${id}')" ></td></tr>`;
     date.setDate(date.getDate() + 1);
   }
   table += "</table>";
   calendarDiv.innerHTML = table;
   calculateBill(year, month);
+}
+
+function getClass(date) {
+  const now = new Date();
+  return now.getDate() == date.getDate() &&
+    now.getMonth() == date.getMonth() &&
+    now.getFullYear() == date.getFullYear()
+    ? "date-highlight"
+    : "";
+}
+
+function updateInput(id) {
+  const val = document.getElementById(id).value;
+  if (val == 0 || val == "0") {
+    document.getElementById(id).value = "";
+  }
 }
 
 function updateMilkData(id) {
@@ -86,18 +102,19 @@ function nextMonth() {
 
 generateCalendar(currentDate.getFullYear(), currentDate.getMonth());
 
-if(window.navigator.userAgent.indexOf('iPhone') != -1){
-  if(window.navigator.standalone == true){
-    
+if (window.navigator.userAgent.indexOf("iPhone") != -1) {
+  if (window.navigator.standalone == true) {
   } else {
-      document.getElementById('install-bar').style.display = 'block';
+    document.getElementById("install-bar").style.display = "block";
   }
 } else {
-  
 }
 
 function shareOnWhatsApp(year, month) {
-  let message = `Milk Tracker Data for ${new Date(year, month).toLocaleString('default', { month: 'long' })} ${year}\n\n`;
+  let message = `Milk Tracker Data for ${new Date(year, month).toLocaleString(
+    "default",
+    { month: "long" }
+  )} ${year}\n\n`;
   let totalBill = 0;
   let id = `${year}_${month}`;
   let price = priceData[id] || 0;
@@ -119,12 +136,20 @@ function shareOnWhatsApp(year, month) {
   let whatsapp_url = "https://wa.me/?text=" + encodeURIComponent(message);
 
   // Open the URL in a new tab
-  window.open(whatsapp_url, '_blank');
+  window.open(whatsapp_url, "_blank");
 }
+
+window.addEventListener("DOMContentLoaded", function () {
+  const element = document.querySelector(".date-highlight + td input");
+  if (element) {
+    element.focus();
+  }
+});
 
 window.setPrice = setPrice;
 window.prevMonth = prevMonth;
 window.nextMonth = nextMonth;
+window.updateInput = updateInput;
 window.updateMilkData = updateMilkData;
 window.shareOnWhatsApp = shareOnWhatsApp;
 window.currentDate = currentDate;

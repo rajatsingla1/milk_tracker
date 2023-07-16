@@ -112,3 +112,9 @@ table td {
 .whatsapp-button:hover {
   background: #128C7E;
 }
+
+.date-highlight {
+  color: blue;
+  text-decoration: underline;
+  font-weight: bold;
+}
