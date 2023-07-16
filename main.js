@@ -142,6 +142,7 @@ function shareOnWhatsApp(year, month) {
 window.addEventListener("DOMContentLoaded", function () {
   const element = document.querySelector(".date-highlight + td input");
   if (element) {
+    element.scrollIntoView({ behavior: "smooth", block: "end", inline: "nearest" });
     element.focus();
   }
 });
